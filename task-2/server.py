@@ -13,8 +13,10 @@ print 'Server is running'
 def sendImage(data, addr):
     images = ['gambar-1.png','gambar-2.png','gambar-3.png', 'gambar-4.png','gambar-5.png']
     if 'ready' in data:
+        sock.sendto('OK' , addr)
         for filename in images:
-            sock.sendto("Start sending " + str(filename) + str(os.path.getsize(filename)), addr)
+            sock.sendto('Start sending ' + str(filename), addr)
+            sock.sendto('File size ' + str(os.path.getsize(filename)), addr)
             f = open(filename, 'rb')
             imageBytes = f.read()
             for i in imageBytes:
