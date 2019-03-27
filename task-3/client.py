@@ -15,7 +15,7 @@ def cd(sock):
     print(dir)
         
 def download(s):
-    filename = raw_input("Filename? -> ")
+    filename = raw_input("Filename: ")
     filename = '.\\' + filename
     b = os.path.basename(filename)
     if filename != 'q':
@@ -23,7 +23,7 @@ def download(s):
         data = s.recv(1024)
         if data[:6] == 'EXISTS':
             filesize = long(data[6:])
-            message = raw_input("File exists, " + str(filesize) +"Bytes, download? (Y/N)? -> ")
+            message = raw_input("File exists, " + str(filesize) +"Bytes, download? (Y/N)?  ")
             if message == 'Y':
                 foldername = str(datetime.datetime.now())[:19]
                 foldername = foldername.replace(':','_')
@@ -46,7 +46,7 @@ def download(s):
             print "File Does Not Exist!"
 
 def upload(s):
-    filename = raw_input("Filename? -> ")
+    filename = raw_input("Filename: ")
     s.send(filename)
     data = s.recv(1024)
     if 'OKK' in data:
@@ -67,7 +67,7 @@ def Main():
     s = socket.socket()
     s.connect((host, port))
 
-    print '---Command---\n1. ls\t\t\t\t: melihat daftar files dan folder pada direktori saat ini\n2. cd\t\t\t\t: pindah direktori\n3. download [direktori_file]\t: download file\n4. upload [nama_file]\t\t: upload file ke server\n5. quit\t\t\t\t: untuk keluar'
+    print '---Command---\n1. ls\t\t\t\t\t: melihat daftar files dan folder pada direktori saat ini\n2. cd\t\t\t\t\t: pindah direktori\n3. download diikuti [direktori_file]\t: download file\n4. upload diikuti [nama_file]\t\t: upload file ke server\n5. quit\t\t\t\t\t: untuk keluar'
     while True:
         cmd = raw_input("Command: ")
         s.send(cmd)
